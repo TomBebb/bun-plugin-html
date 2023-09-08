@@ -1,3 +1,3 @@
-import plugin  from "./html";
+import plugin  from "./plugin";
 
 export default plugin

@@ -1,12 +1,13 @@
-
+import { pathToFileURL } from "url"
+import htmlPlugin from "../plugin"
 import path from "path"
-import { buildFrontend } from "../resolver"
 console.log(import.meta.dir)
-
-await buildFrontend({
-    path: 
-    path.join(import.meta.dir, "my.html"),
-    bun: {
-        outdir: path.join(import.meta.dir, "dist"),
-    }
+await Bun.build({
+     entrypoints: [
+         path.join(import.meta.dir, "my.html")
+     ],
+     outdir: path.join(import.meta.dir, "dist"),
+     plugins: [
+      htmlPlugin,
+     ]
 })
