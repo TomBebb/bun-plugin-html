@@ -18,6 +18,13 @@ export async function buildFrontend(conf: BiteBuildConfig): Promise<FrontendBuil
     return matching(conf)
 }
 
+export async function buildFrontends(paths: string[], conf?:Omit<BiteBuildConfig, 'path'>) {
+    await Promise.all(paths.map(p => buildFrontend({
+        ...conf,
+        path: p,
+    })))
+}
+
 export const byExtension = {
     html: htmlProcessor
 }

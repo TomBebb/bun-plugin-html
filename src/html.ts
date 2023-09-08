@@ -12,10 +12,11 @@ export const htmlProcessor: FrontendProcessor = async function process(args: Bit
 
     const outDir = args.bun?.outdir ?? ""
     await Promise.all(scripts.map(async (script, i) => {
-      if (script.attrs.src) {
-        console.log("htmlscript src", script.attributes.src)
+      const src =script.attrs.src
+      if (src) {
+        console.log("htmlscript src", src)
 
-        const srcPath = path.join(dir, script.attrs.src)
+        const srcPath = src.startsWith("/") ? path.join(args.bun.root, src) : path.join(dir, src)
 
         console.log("bun build", srcPath)
         const res = await Bun.build({
@@ -32,7 +33,7 @@ export const htmlProcessor: FrontendProcessor = async function process(args: Bit
 
 
        const conf: BuildConfig = {
-
+        ...args.bun,
         entrypoints: [path.relative(dir, tempPath)],
         outdir:  path.join(dir, "dist")
        }

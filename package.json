@@ -6,6 +6,7 @@
   "author": "Tom Bebbington",
   "license": "ISC",
   "dependencies": {
+    "fast-glob": "^3.3.1",
     "node-html-parser": "^6.1.8"
   },
   "devDependencies": {
