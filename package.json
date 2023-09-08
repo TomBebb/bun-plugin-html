@@ -3,17 +3,19 @@
   "version": "0.0.0",
   "description": "Bun plugin for HTML imports",
   "main": "index.ts",
-  "build": "bun "
-  "keywords": [
-    "html",
-    "bun"
-  ],
   "author": "Tom Bebbington",
   "license": "ISC",
   "dependencies": {
     "node-html-parser": "^6.1.8"
   },
   "devDependencies": {
-    "bun-types": "^0.8.1"
+    "bun-types": "^0.8.1",
+    "concurrently": "^8.2.1",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "build:source": "bun build src/index.ts --outDir dist",
+    "build": "concurrently 'bun run build:types' 'bun run build:source'"
   }
 }
