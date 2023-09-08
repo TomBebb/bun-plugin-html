@@ -1,8 +1,9 @@
-import { pathToFileURL } from "url"
 import htmlPlugin from "../plugin"
 import path from "path"
-console.log(import.meta.dir)
 await Bun.build({
+    root: import.meta.dir,
+    splitting: true,
+    //minify: true,
      entrypoints: [
          path.join(import.meta.dir, "my.html")
      ],
@@ -10,4 +11,4 @@ await Bun.build({
      plugins: [
       htmlPlugin,
      ]
-})
+}).catch(console.error)

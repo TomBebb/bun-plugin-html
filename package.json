@@ -12,7 +12,8 @@
   },
   "devDependencies": {
     "bun-plugin-dts": "^0.1.0",
-    "bun-types": "^0.8.1"
+    "bun-types": "^0.8.1",
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "build": "bun build.ts"

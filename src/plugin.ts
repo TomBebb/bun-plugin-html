@@ -2,39 +2,39 @@ import type { BunPlugin } from "bun";
 import fs from "fs/promises"
 import { parse } from 'node-html-parser';
 import path from "path"
-
+console.log('cwd',  import.meta.dir)
  const htmlPlugin: BunPlugin = {
   name: "HTML Loader",
   setup(build) {
   build.onLoad({  filter: /.*\.html/}, async args => {
-    const dir = path.dirname( args.path)
-    const content = await fs.readFile( args.path, "utf8")
 
-    const parsed = parse(content)
+    const rootDir = build.config.root ??".";
+    const destDir =build.config.outdir ?? "."
+    const dir = path.dirname( args.path)
+    const parsed = parse(await fs.readFile( args.path, "utf8"))
     const scripts  = parsed.getElementsByTagName("script")
 
+    const paths = [];
     await Promise.all(scripts.map(async (script, i) => {
+      if (script.attrs.src) {
+        paths.push(path.relative(destDir, path.join(dir,  script.attrs.src)))
+        return
+      }
 
         const tempPath = path.join(dir, "__temp__"+i+".js")
        await fs.writeFile(tempPath, script.textContent)
-       console.log('bun build', tempPath )
+       paths.push(tempPath)
 
-
-       await Bun.build({
-        entrypoints: [""],
-        outdir:  path.join(dir, ".dist")
-       }).catch(console.error)
-       console.log('bun build done' )
-
-
-      // script.textContent = await fs.readFile(tempPath, 'utf8')
     })).catch(console.error)
-    console.log(parsed.toString())
-    return {
 
-      contents: parsed.toString()
+    const content = parsed.toString()
+    console.log(content, paths, rootDir)
+    return {
+      loader: "js",
+      contents: `
+      import "~/examples/demo";export const content = ${JSON.stringify(content)}`
     }
-  })  
+  })
   },
 }
 export default htmlPlugin

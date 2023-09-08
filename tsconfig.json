@@ -10,11 +10,17 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
     "dist/**/*"
-  ]
+  ],
+  
 }
