@@ -1,0 +1,19 @@
+{
+  "name": "bun-plugin-html",
+  "version": "0.0.0",
+  "description": "Bun plugin for HTML imports",
+  "main": "index.ts",
+  "build": "bun "
+  "keywords": [
+    "html",
+    "bun"
+  ],
+  "author": "Tom Bebbington",
+  "license": "ISC",
+  "dependencies": {
+    "node-html-parser": "^6.1.8"
+  },
+  "devDependencies": {
+    "bun-types": "^0.8.1"
+  }
+}
