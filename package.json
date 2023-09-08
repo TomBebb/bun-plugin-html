@@ -6,7 +6,7 @@
   "author": "Tom Bebbington",
   "license": "ISC",
   "dependencies": {
-    "node-html-parser": "^6.1.8"
+    "tempy": "^3.1.0"
   },
   "devDependencies": {
     "bun-types": "^0.8.1",
